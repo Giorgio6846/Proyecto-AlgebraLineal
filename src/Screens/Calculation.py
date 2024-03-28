@@ -1,7 +1,7 @@
-from PySide6 import QtCore, QtWidgets, QtGui
+from PySide6.QtWidgets import QWidget
 
-class Calculation(QtWidgets.QWidget):
+class Calculation(QWidget):
 
-    def __init__(self):
+    def __init__(self, index):
         super().__init__()
 

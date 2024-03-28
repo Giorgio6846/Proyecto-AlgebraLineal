@@ -1,7 +1,7 @@
-from PySide6 import QtCore, QtWidgets, QtGui
+from PySide6.QtWidgets import QWidget, QLabel
 
-class Result(QtWidgets.QWidget):
+class Result(QWidget):
 
-    def __init__(self):
+    def __init__(self, index):
         super().__init__()
 
