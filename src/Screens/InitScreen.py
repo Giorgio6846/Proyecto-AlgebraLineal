@@ -1,12 +1,11 @@
-from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QSizePolicy, QHBoxLayout, QPushButton
-from PySide6.QtGui import QPalette, QColor, QFont
+from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QSizePolicy
+from PySide6.QtGui import QFont
 from PySide6.QtCore import *
 
 class InitScreen(QWidget):
 
     def __init__(self):
         super().__init__()  
-        
         
         self.TitleScreen = QLabel("Proyecto Algebra Lineal")
         self.TitleScreen.setFont(QFont("Arial", 24))
