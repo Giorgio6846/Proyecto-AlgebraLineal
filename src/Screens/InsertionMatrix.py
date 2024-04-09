@@ -55,5 +55,6 @@ class InsertionMatrix(QWidget):
                 self.MatrixRowInput.append(self.cellMatrix)
             self.MatrixForm.addRow(self.MatrixRowLayout)
             self.MatrixRowsInput.append(self.MatrixRowInput)                            
+
     def showMatrix(self, size):
         print("")
