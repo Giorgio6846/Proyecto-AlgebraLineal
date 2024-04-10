@@ -4,9 +4,10 @@ from PySide6.QtCore import *
 
 class InitScreen(QWidget):
 
-    def __init__(self):
+    def __init__(self, data):
         super().__init__()  
-        
+        self.dataApp = data
+
         self.TitleScreen = QLabel("Proyecto Algebra Lineal")
         self.TitleScreen.setFont(QFont("Arial", 24))
         self.TitleScreen.setAlignment(Qt.AlignmentFlag.AlignTop)
@@ -23,4 +24,3 @@ class InitScreen(QWidget):
         self.layout.addWidget(self.TitleScreen)
         self.layout.addWidget(self.Integrantes)
         self.setLayout(self.layout)
-        

@@ -6,21 +6,22 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QPushButton,
     QInputDialog,
-    QFormLayout
-)
+    QFormLayout)
+
 from PySide6.QtGui import QFont
 from PySide6.QtCore import *
 
-class InsertionMatrix(QWidget):
-
-    def __init__(self):
+ class InsertionMatrix(QWidget):
+    def __init__(self, data):
         super().__init__()
-        
+
+        self.dataApp = data
+
         self.MatrixForm = QFormLayout()
         self.MatrixRowsInput = []
-        self.MatrixData = []
 
         self.initMatrix()
+        self.hideMatrix()
 
         self.TitleScreen = QLabel("Ingreso de matriz")
         self.TitleScreen.setFont(QFont("Arial", 24))
@@ -31,7 +32,10 @@ class InsertionMatrix(QWidget):
         self.SizeData = QInputDialog()
         self.SizeData.setLabelText("Ingrese el tamaño de la matriz entre 4 a 10")
         self.SizeData.setInputMode(QInputDialog.IntInput)
-        self.SizeData.setIntRange(4,10)
+        self.SizeData.setIntRange(4, 10)
+        self.SizeData.setOption(QInputDialog.NoButtons, True)
+
+        self.SizeData.intValueChanged.connect(self.showMatrix)
 
         self.LayoutSize = QHBoxLayout()
         self.LayoutSize.addWidget(self.SizeData)
@@ -42,19 +46,25 @@ class InsertionMatrix(QWidget):
         self.layout.addLayout(self.MatrixForm)
         self.setLayout(self.layout)
 
+    def showMatrix(self, text):
+        for row in range(0,text):
+            for col in range(0, text):
+                self.MatrixRowsInput[row][col].setHidden(False)
+
     def initMatrix(self):
+        
         for column in range(0, 10):
             self.MatrixRowInput = []
             self.MatrixRowLayout = QHBoxLayout()
             for row in range(0, 10):
-                self.cellMatrix = QInputDialog()
-                self.cellMatrix.setOption(QInputDialog.NoButtons)
-                self.cellMatrix.setInputMode(QInputDialog.IntInput)
-                self.cellMatrix.setLabelText("")
+                self.cellMatrix = QLabel()
+                self.cellMatrix.setText("1")
                 self.MatrixRowLayout.addWidget(self.cellMatrix)
                 self.MatrixRowInput.append(self.cellMatrix)
             self.MatrixForm.addRow(self.MatrixRowLayout)
-            self.MatrixRowsInput.append(self.MatrixRowInput)                            
+            self.MatrixRowsInput.append(self.MatrixRowInput)
 
-    def showMatrix(self, size):
-        print("")
+    def hideMatrix(self):
+        for row in self.MatrixRowsInput:
+            for col in row:
+                col.setHidden(True)

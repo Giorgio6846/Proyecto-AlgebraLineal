@@ -2,16 +2,20 @@ import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QStackedLayout, QPushButton
 from PySide6.QtGui import QPalette, QColor
 from enum import Enum
-# Files
 from Screens import InitScreen, InsertionMatrix, Calculation, Result
 
 Options = Enum('Options', ['MainScreen', 'ExitProgram', 'InsertData', 'CalculationMatrix', 'ResultMatrix'])
 
-class Controller(QWidget):
+class Data():
+    matrix = []
+    size = 0
 
+class Controller(QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
+
+        self.dataApp = Data()
 
         self.index = 0
 
@@ -34,10 +38,10 @@ class Controller(QWidget):
 
         self.layout = QStackedLayout()
 
-        self.mainScreen = InitScreen.InitScreen()
-        self.insertionMatrix = InsertionMatrix.InsertionMatrix()
-        self.calculationMatrix = Calculation.Calculation()
-        self.resultMatrix = Result.Result()
+        self.mainScreen = InitScreen.InitScreen(self.dataApp)
+        self.insertionMatrix = InsertionMatrix.InsertionMatrix(self.dataApp)
+        self.calculationMatrix = Calculation.Calculation(self.dataApp)
+        self.resultMatrix = Result.Result(self.dataApp)
 
         self.layout.addWidget(self.mainScreen)
         self.layout.addWidget(self.insertionMatrix)
@@ -71,7 +75,6 @@ class Controller(QWidget):
     def initUI(self):
         self.setFixedSize(800, 600)
         self.setWindowTitle('Proyecto - Algebra Lineal 2024-1')
-
 
 if __name__ == "__main__":
     app = QApplication([])
