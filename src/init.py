@@ -3,12 +3,17 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QHBoxLayout, Q
 from PySide6.QtGui import QPalette, QColor
 from enum import Enum
 from Screens import InitScreen, InsertionMatrix, Calculation, Result
+import numpy
 
 Options = Enum('Options', ['MainScreen', 'ExitProgram', 'InsertData', 'CalculationMatrix', 'ResultMatrix'])
 
 class Data():
     matrix = []
     size = 0
+    
+    def __init__(self):
+        self.matrix = numpy.zeros(shape=(10,10))
+    
 
 class Controller(QWidget):
     def __init__(self):

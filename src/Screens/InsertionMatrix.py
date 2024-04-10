@@ -10,8 +10,9 @@ from PySide6.QtWidgets import (
 
 from PySide6.QtGui import QFont
 from PySide6.QtCore import *
+import random
 
- class InsertionMatrix(QWidget):
+class InsertionMatrix(QWidget):
     def __init__(self, data):
         super().__init__()
 
@@ -47,12 +48,19 @@ from PySide6.QtCore import *
         self.setLayout(self.layout)
 
     def showMatrix(self, text):
-        for row in range(0,text):
+        self.hideMatrix()
+
+        for row in range(0, text):
             for col in range(0, text):
+                self.dataApp.matrix[row][col] = random.randint(0, 100)
+                self.MatrixRowsInput[row][col].setText(str(self.dataApp.matrix[row][col]))
                 self.MatrixRowsInput[row][col].setHidden(False)
 
+        self.dataApp.size = text
+        print(self.dataApp.matrix)
+
     def initMatrix(self):
-        
+
         for column in range(0, 10):
             self.MatrixRowInput = []
             self.MatrixRowLayout = QHBoxLayout()
