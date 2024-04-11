@@ -3,17 +3,32 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QHBoxLayout, Q
 from PySide6.QtGui import QPalette, QColor
 from enum import Enum
 from Screens import InitScreen, InsertionMatrix, Calculation, Result
-import numpy
+import numpy as np
 
-Options = Enum('Options', ['MainScreen', 'ExitProgram', 'InsertData', 'CalculationMatrix', 'ResultMatrix'])
+Options = Enum('Options', ['MainScreen', 'ExitProgram', 'InsertData', 'ResultMatrix'])
 
 class Data():
     matrix = []
     size = 0
+    matrixReady = []
+
+    LUMethodL = []
+    LUMethodU = []
     
+    PLUMethodP = []
+    PLUMethodL = []
+    PLUMethodU = []
+
     def __init__(self):
-        self.matrix = numpy.zeros(shape=(10,10))
-    
+        self.matrix = np.zeros(shape=(10,10))
+
+    def setMatrixReady(self, num):
+        self.matrixReady = np.zeros(shape=(num, num))
+
+        for row in range(0, num):
+            for col in range(0, num):
+                self.matrixReady[row][col] = self.matrix[row][col]
+
 
 class Controller(QWidget):
     def __init__(self):
@@ -33,7 +48,7 @@ class Controller(QWidget):
 
         self.buttonStart.clicked.connect(lambda: self.setIndex(Options.MainScreen))
         self.buttonInsertMatrix.clicked.connect(lambda: self.setIndex(Options.InsertData))
-        self.buttonResult.clicked.connect(lambda: self.setIndex(Options.CalculationMatrix))
+        self.buttonResult.clicked.connect(lambda: self.setIndex(Options.ResultMatrix))
         self.buttonExit.clicked.connect(lambda: self.setIndex(Options.ExitProgram))
 
         self.LayoutButton.addWidget(self.buttonStart)
@@ -50,7 +65,6 @@ class Controller(QWidget):
 
         self.layout.addWidget(self.mainScreen)
         self.layout.addWidget(self.insertionMatrix)
-        self.layout.addWidget(self.calculationMatrix)
         self.layout.addWidget(self.resultMatrix)
 
         self.layout.setCurrentIndex(self.index)
@@ -70,11 +84,13 @@ class Controller(QWidget):
         elif caseButton == Options.InsertData:
             self.index = 1
             self.layout.setCurrentIndex(self.index)
-        elif caseButton == Options.CalculationMatrix:
-            self.index = 2
-            self.layout.setCurrentIndex(self.index)
         elif caseButton == Options.ResultMatrix:
-            self.index = 3
+            self.index = 2
+            self.calculationMatrix.LUCalc()
+            
+            print(self.dataApp.LUMethodL)
+            print(self.dataApp.LUMethodU)
+            
             self.layout.setCurrentIndex(self.index)
 
     def initUI(self):

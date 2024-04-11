@@ -57,10 +57,11 @@ class InsertionMatrix(QWidget):
                 self.MatrixRowsInput[row][col].setHidden(False)
 
         self.dataApp.size = text
+        self.dataApp.matrixReady(self.dataApp.size)
+                
         print(self.dataApp.matrix)
 
     def initMatrix(self):
-
         for column in range(0, 10):
             self.MatrixRowInput = []
             self.MatrixRowLayout = QHBoxLayout()
