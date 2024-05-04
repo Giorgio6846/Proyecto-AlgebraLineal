@@ -1,6 +1,5 @@
 import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QStackedLayout, QPushButton
-from PySide6.QtGui import QPalette, QColor
 from enum import Enum
 from Screens import InitScreen, InsertionMatrix, Calculation, Result
 import numpy as np
@@ -8,27 +7,21 @@ import numpy as np
 Options = Enum('Options', ['MainScreen', 'ExitProgram', 'InsertData', 'ResultMatrix'])
 
 class Data():
-    matrix = []
-    size = 0
-    matrixReady = []
+    initMatrix = []
 
-    LUMethodL = []
-    LUMethodU = []
-    
-    PLUMethodP = []
-    PLUMethodL = []
-    PLUMethodU = []
+    size = 0
+
+    PMatrix = []
+    LMatrix = []
+    UMatrix = []
+
+    isPTLU = False
 
     def __init__(self):
-        self.matrix = np.zeros(shape=(10,10))
-
-    def setMatrixReady(self, num):
-        self.matrixReady = np.zeros(shape=(num, num))
-
-        for row in range(0, num):
-            for col in range(0, num):
-                self.matrixReady[row][col] = self.matrix[row][col]
-
+        self.initMatrix = np.zeros(shape=(10, 10))
+        self.PMatrix = np.zeros(shape=(10, 10))
+        self.LMatrix = np.zeros(shape=(10, 10))
+        self.UMatrix = np.zeros(shape=(10, 10))
 
 class Controller(QWidget):
     def __init__(self):
@@ -80,18 +73,15 @@ class Controller(QWidget):
             sys.exit(app.exec())
         elif caseButton == Options.MainScreen:
             self.index = 0
-            self.layout.setCurrentIndex(self.index)
         elif caseButton == Options.InsertData:
             self.index = 1
-            self.layout.setCurrentIndex(self.index)
         elif caseButton == Options.ResultMatrix:
             self.index = 2
             self.calculationMatrix.LUCalc()
+            self.resultMatrix.setMatrix()
+            self.resultMatrix.showPButton()
             
-            print(self.dataApp.LUMethodL)
-            print(self.dataApp.LUMethodU)
-            
-            self.layout.setCurrentIndex(self.index)
+        self.layout.setCurrentIndex(self.index)
 
     def initUI(self):
         self.setFixedSize(800, 600)
