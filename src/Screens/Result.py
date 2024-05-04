@@ -82,17 +82,17 @@ class Result(QWidget):
     def setMatrix(self):
         self.OriginalMatrix.sizeMatrix = self.dataApp.size
         self.OriginalMatrix.matrix = self.dataApp.initMatrix
-        self.OriginalMatrix.showMatrix()
+        self.OriginalMatrix.showMatrixInt()
 
         if(self.dataApp.isPTLU):
             self.PMatrix.sizeMatrix = self.dataApp.size
             self.PMatrix.matrix = self.dataApp.PMatrix
-            self.PMatrix.showMatrix()
+            self.PMatrix.showMatrixFloat()
 
         self.LMatrix.sizeMatrix = self.dataApp.size
         self.LMatrix.matrix = self.dataApp.LMatrix
-        self.LMatrix.showMatrix()
+        self.LMatrix.showMatrixFloat()
 
         self.UMatrix.sizeMatrix = self.dataApp.size
         self.UMatrix.matrix = self.dataApp.UMatrix
-        self.UMatrix.showMatrix()
+        self.UMatrix.showMatrixFloat()

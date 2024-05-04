@@ -77,10 +77,10 @@ class Controller(QWidget):
             self.index = 1
         elif caseButton == Options.ResultMatrix:
             self.index = 2
-            self.calculationMatrix.LUCalc()
+            self.calculationMatrix.CalcLUorPTLU()
             self.resultMatrix.setMatrix()
             self.resultMatrix.showPButton()
-            
+
         self.layout.setCurrentIndex(self.index)
 
     def initUI(self):

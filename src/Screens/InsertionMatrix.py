@@ -53,4 +53,4 @@ class InsertionMatrix(QWidget):
         self.matrixWidget.sizeMatrix = self.dataApp.size
         self.matrixWidget.matrix = self.dataApp.initMatrix
         
-        self.matrixWidget.showMatrix()
+        self.matrixWidget.showMatrixInt()

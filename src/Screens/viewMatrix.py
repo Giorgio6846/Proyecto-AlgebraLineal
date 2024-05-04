@@ -22,7 +22,7 @@ class matrixShow(QWidget):
                 self.MatrixRowInfo.append(self.cellMatrix)
             self.viewMatrix.addRow(self.MatrixRowLayout)
             self.MatrixInfo.append(self.MatrixRowInfo)
-        
+
         self.hideMatrix()
 
     def hideMatrix(self):
@@ -30,7 +30,18 @@ class matrixShow(QWidget):
             for col in row:
                 col.setHidden(True)
 
-    def showMatrix(self):
+    def showMatrixFloat(self):
+        self.hideMatrix()
+
+        for row in range(0, self.sizeMatrix):
+            for col in range(0, self.sizeMatrix):
+                self.MatrixInfo[row][col].setText(str(self.matrix[row][col]))
+                self.MatrixInfo[row][col].setText(
+                    str("{:.4f}".format(self.matrix[row][col]))
+                )
+                self.MatrixInfo[row][col].setHidden(False)
+
+    def showMatrixInt(self):
         self.hideMatrix()
 
         for row in range(0, self.sizeMatrix):
