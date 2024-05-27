@@ -36,8 +36,10 @@ class Calculation(QWidget):
         self.dataApp.LMatrix = L
         self.dataApp.UMatrix = U
 
-        print(self.dataApp.LMatrix)
-        print(self.dataApp.UMatrix)
+        self.dataApp.matrixVerification = np.matmul(
+            L[0 : self.dataApp.size, 0 : self.dataApp.size],
+            U[0 : self.dataApp.size, 0 : self.dataApp.size],
+        )
 
         self.isPTLU = False
 
@@ -77,6 +79,16 @@ class Calculation(QWidget):
         self.dataApp.PMatrix = P
         self.dataApp.LMatrix = L
         self.dataApp.UMatrix = U
+
+        self.dataApp.matrixVerification = np.matmul(
+            P[0 : self.dataApp.size, 0 : self.dataApp.size],
+            L[0 : self.dataApp.size, 0 : self.dataApp.size],
+        )
+
+        self.dataApp.matrixVerification = np.matmul(
+            self.dataApp.matrixVerification,
+            U[0 : self.dataApp.size, 0 : self.dataApp.size],
+        )
 
         self.dataApp.isPTLU = True
 

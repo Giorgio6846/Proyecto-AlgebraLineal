@@ -11,7 +11,7 @@ from enum import Enum
 from Screens import viewMatrix
 
 
-MatrixOptions = Enum("MatrixOptions", ["Original", "P", "L", "U"])
+MatrixOptions = Enum("MatrixOptions", ["Original", "P", "L", "U", "Verif"])
 
 class Result(QWidget):
 
@@ -23,25 +23,33 @@ class Result(QWidget):
         self.PMatrix = viewMatrix.matrixShow()
         self.LMatrix = viewMatrix.matrixShow()
         self.UMatrix = viewMatrix.matrixShow()
+        self.VerificationMatrix = viewMatrix.matrixShow()
 
         self.matrixOptionsLayout = QHBoxLayout()
         self.buttonOriginalMatrix = QPushButton(text = "Original")
         self.buttonPMatrix = QPushButton(text = "P")
         self.buttonLMatrix = QPushButton(text = "L")
         self.buttonUMatrix = QPushButton(text = "U")
+        self.buttonVerificationMatrix = QPushButton(text="Verification")
 
         self.matrixOptionsLayout.addWidget(self.buttonOriginalMatrix)
         self.matrixOptionsLayout.addWidget(self.buttonPMatrix)
         self.matrixOptionsLayout.addWidget(self.buttonLMatrix)
         self.matrixOptionsLayout.addWidget(self.buttonUMatrix)
+        self.matrixOptionsLayout.addWidget(self.buttonVerificationMatrix)
 
         self.buttonOriginalMatrix.clicked.connect(lambda: self.setMethodIndex(MatrixOptions.Original))
         self.buttonPMatrix.clicked.connect(lambda: self.setMethodIndex(MatrixOptions.P))
         self.buttonLMatrix.clicked.connect(lambda: self.setMethodIndex(MatrixOptions.L))
         self.buttonUMatrix.clicked.connect(lambda: self.setMethodIndex(MatrixOptions.U))
+        self.buttonVerificationMatrix.clicked.connect(
+            lambda: self.setMethodIndex(MatrixOptions.Verif)
+        )
 
         self.OriginalWidget = QWidget()
         self.OriginalWidget.setLayout(self.OriginalMatrix.viewMatrix)
+        self.VerifWidget = QWidget()
+        self.VerifWidget.setLayout(self.VerificationMatrix.viewMatrix)
         self.PWidget = QWidget()
         self.PWidget.setLayout(self.PMatrix.viewMatrix)
         self.LWidget = QWidget()
@@ -51,6 +59,7 @@ class Result(QWidget):
 
         self.matrixLayout = QStackedLayout()
         self.matrixLayout.addWidget(self.OriginalWidget)
+        self.matrixLayout.addWidget(self.VerifWidget)
         self.matrixLayout.addWidget(self.PWidget)
         self.matrixLayout.addWidget(self.LWidget)
         self.matrixLayout.addWidget(self.UWidget)
@@ -64,12 +73,14 @@ class Result(QWidget):
     def setMethodIndex(self, caseButton):
         if caseButton == MatrixOptions.Original:
             MethodIndex = 0
-        elif caseButton == MatrixOptions.P:
+        elif caseButton == MatrixOptions.Verif:
             MethodIndex = 1
-        elif caseButton == MatrixOptions.L:
+        elif caseButton == MatrixOptions.P:
             MethodIndex = 2
-        elif caseButton == MatrixOptions.U:
+        elif caseButton == MatrixOptions.L:
             MethodIndex = 3
+        elif caseButton == MatrixOptions.U:
+            MethodIndex = 4
 
         self.matrixLayout.setCurrentIndex(MethodIndex)
 
@@ -83,6 +94,10 @@ class Result(QWidget):
         self.OriginalMatrix.sizeMatrix = self.dataApp.size
         self.OriginalMatrix.matrix = self.dataApp.initMatrix
         self.OriginalMatrix.showMatrixInt()
+
+        self.VerificationMatrix.sizeMatrix = self.dataApp.size
+        self.VerificationMatrix.matrix = self.dataApp.matrixVerification
+        self.VerificationMatrix.showMatrixInt()
 
         if(self.dataApp.isPTLU):
             self.PMatrix.sizeMatrix = self.dataApp.size

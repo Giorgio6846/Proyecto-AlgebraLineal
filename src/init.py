@@ -17,6 +17,8 @@ class Data():
 
     isPTLU = False
 
+    matrixVerification = []
+
     def __init__(self):
         self.initMatrix = np.zeros(shape=(10, 10))
         self.PMatrix = np.zeros(shape=(10, 10))
