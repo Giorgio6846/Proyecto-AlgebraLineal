@@ -97,7 +97,7 @@ class Result(QWidget):
 
         self.VerificationMatrix.sizeMatrix = self.dataApp.size
         self.VerificationMatrix.matrix = self.dataApp.matrixVerification
-        self.VerificationMatrix.showMatrixInt()
+        self.VerificationMatrix.showMatrixFloat()
 
         if(self.dataApp.isPTLU):
             self.PMatrix.sizeMatrix = self.dataApp.size
